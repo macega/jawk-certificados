@@ -1288,9 +1288,6 @@ button {
   transform: rotate(180deg);
 }
 
-.faq-item.active .faq-body {
-  /* Set dynamically by JS or a generic safe value */
-}
 
 .faq-item.active .faq-content {
   border-top-color: var(--border-color);
