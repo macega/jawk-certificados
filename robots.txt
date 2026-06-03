@@ -1,0 +1,8 @@
+# www.robotstxt.org/
+
+# Allow all spiders to index all pages of this site
+User-agent: *
+Disallow:
+
+# Specify sitemap location
+Sitemap: https://certificado.jawk.com.br/sitemap.xml
