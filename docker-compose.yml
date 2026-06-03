@@ -5,7 +5,7 @@ services:
     build: .
     container_name: jawk-certificados
     ports:
-      - "8080:80"
+      - "8078:80"
     environment:
       - PORT=80
       - SMTP_HOST=${SMTP_HOST}
