@@ -291,21 +291,51 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Handle Checkout submission
-  checkoutForm.addEventListener('submit', (e) => {
+  checkoutForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     
     const clientName = document.getElementById('checkout-name').value.trim();
     const clientEmail = document.getElementById('checkout-email').value.trim();
     const clientPhone = document.getElementById('checkout-phone').value.trim();
+    const planName = modalSummaryName.textContent;
+    const planPrice = modalSummaryPrice.textContent;
+    const submitBtn = checkoutForm.querySelector('button[type="submit"]');
 
     if (!clientName || !clientEmail || !clientPhone) {
       alert('Por favor, preencha todos os campos.');
       return;
     }
 
-    // Success Screen transition
-    document.getElementById('modal-form-content').style.display = 'none';
-    document.getElementById('modal-success-content').style.display = 'block';
+    const originalBtnText = submitBtn.textContent;
+    submitBtn.textContent = 'Enviando...';
+    submitBtn.disabled = true;
+
+    try {
+      const message = `Solicitação de Emissão de Certificado\nPlano: ${planName}\nValor: ${planPrice}\nTelefone: ${clientPhone}`;
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name: clientName, email: clientEmail, message })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Success Screen transition
+        document.getElementById('modal-form-content').style.display = 'none';
+        document.getElementById('modal-success-content').style.display = 'block';
+      } else {
+        alert(data.error || 'Erro ao processar a solicitação. Tente novamente.');
+      }
+    } catch (error) {
+      console.error('Erro de conexão:', error);
+      alert('Falha na comunicação com o servidor. Verifique sua conexão.');
+    } finally {
+      submitBtn.textContent = originalBtnText;
+      submitBtn.disabled = false;
+    }
   });
 
   /* ==========================================
