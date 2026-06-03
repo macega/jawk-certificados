@@ -6,6 +6,11 @@ services:
     container_name: jawk-certificados
     ports:
       - "8080:80"
-    env_file:
-      - .env
+    environment:
+      - PORT=80
+      - SMTP_HOST=${SMTP_HOST}
+      - SMTP_PORT=${SMTP_PORT:-465}
+      - SMTP_USER=${SMTP_USER}
+      - SMTP_PASS=${SMTP_PASS}
+      - CONTACT_RECEIVER=${CONTACT_RECEIVER}
     restart: always
