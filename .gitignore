@@ -18,3 +18,24 @@ pnpm-debug.log*
 # System Files
 .DS_Store
 Thumbs.db
+
+
+# --- Sensíveis e gerados (organização 2026-10) ---
+.env.*
+!.env.example
+!.env.*.example
+credentials.json
+token.json
+cookies.json
+*.key
+*.pem
+*.pfx
+*.p12
+*.jks
+*.keystore
+*.ovpn
+*.log
+.next/
+dist/
+.vercel/
+.firebase/
